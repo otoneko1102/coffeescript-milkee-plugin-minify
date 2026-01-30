@@ -6,7 +6,6 @@ consola = require 'consola'
 pkg = require '../package.json'
 PREFIX = "[#{pkg.name}]"
 
-# Create a custom logger with prefix
 c = {}
 for method in ['log', 'info', 'success', 'warn', 'error', 'debug', 'start', 'box']
   do (method) ->
@@ -15,7 +14,6 @@ for method in ['log', 'info', 'success', 'warn', 'error', 'debug', 'start', 'box
         args[0] = "#{PREFIX} #{args[0]}"
       consola[method] args...
 
-# Main minify function
 main = (compilationResult) ->
   { config, compiledFiles } = compilationResult
 
@@ -30,7 +28,6 @@ main = (compilationResult) ->
   c.info "Minifying #{filesToMinify.length} file(s)"
 
   Promise.all (filesToMinify.map (file) ->
-    # Skip if file is empty
     if fs.statSync(file).size is 0
       c.warn "Skip (empty): #{file}"
       return Promise.resolve()
@@ -49,7 +46,6 @@ main = (compilationResult) ->
       throw error
   )
 
-# Export as a factory so users can pass options when requiring the plugin
 module.exports = (options) ->
   (compilationResult) ->
     if options?

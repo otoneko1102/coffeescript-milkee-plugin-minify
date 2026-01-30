@@ -2,7 +2,7 @@
 
 This is a plugin for [milkee](https://www.npmjs.com/package/milkee) .
 
-Minify plugin for milkee.
+Minify plugin for Milkee.
 
 ## Usage
 
