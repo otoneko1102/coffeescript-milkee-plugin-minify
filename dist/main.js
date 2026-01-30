@@ -13,7 +13,6 @@ pkg = require('../package.json');
 
 PREFIX = `[${pkg.name}]`;
 
-// Create a custom logger with prefix
 c = {};
 
 ref = ['log', 'info', 'success', 'warn', 'error', 'debug', 'start', 'box'];
@@ -29,7 +28,6 @@ for (i = 0, len = ref.length; i < len; i++) {
   })(method);
 }
 
-// Main minify function
 main = function(compilationResult) {
   var compiledFiles, config, filesToMinify, filter, inPlace, minifyOptions, pluginOptions, ref1, ref2, ref3, suffix;
   ({config, compiledFiles} = compilationResult);
@@ -43,7 +41,6 @@ main = function(compilationResult) {
   filesToMinify = (compiledFiles || []).filter(filter);
   c.info(`Minifying ${filesToMinify.length} file(s)`);
   return Promise.all(filesToMinify.map(function(file) {
-    // Skip if file is empty
     if (fs.statSync(file).size === 0) {
       c.warn(`Skip (empty): ${file}`);
       return Promise.resolve();
@@ -63,7 +60,6 @@ main = function(compilationResult) {
   }));
 };
 
-// Export as a factory so users can pass options when requiring the plugin
 module.exports = function(options) {
   return function(compilationResult) {
     var config;
